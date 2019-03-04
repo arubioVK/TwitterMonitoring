@@ -1,0 +1,41 @@
+{% extends "main/main_base.html" %}  {# main/main_base.html extends layout.html #}
+
+{% block content %}
+
+<h1 align="center">Perfil del Usuario</h1>
+
+<p align="center"><a href="{{ url_for('user.change_password') }}">Change password</a></p>
+
+{% from "common/form_macros.html" import render_field, render_submit_field %}
+<form action="" method="POST" class="form" role="form">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-5">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.nombre_twitter, tabindex=240) }}
+    {{ render_field(form.consumer_key, tabindex=300)}}
+    {{ render_field(form.consumer_secret, tabindex=300) }}
+    {{ render_field(form.access_token, tabindex=300 )}}
+    {{ render_field(form.access_token_secret, tabindex=300) }}
+    {{ render_field(form.enlaces_active, tabindex=240, checked=enlaces_active ) }}   
+    {{ render_field(form.idioma_active, tabindex=240) }}
+    {{ render_field(form.palabrotas_active, tabindex=240, checked=palabrotas_active )}}
+    {% if restriccion_hora_min is none%}
+    {{ render_field(form.restriccion_hora_min, tabindex=240)}}
+    {%else%}
+    {{ render_field(form.restriccion_hora_min, tabindex=240, value=restriccion_hora_min.strftime('%H:%M')) }}
+    {%endif%}
+    {% if restriccion_hora_max is none%}
+    {{ render_field(form.restriccion_hora_max, tabindex=240)}}
+    {%else%}
+    {{ render_field(form.restriccion_hora_max, tabindex=240, value=restriccion_hora_max.strftime('%H:%M')) }}
+    {%endif%}
+    {{ render_field(form.ubicacion_active, tabindex=250) }}
+    {{ render_field(form.streamer_active, tabindex=240, checked=streamer_active )}}
+    {{ render_field(form.borrar_active, tabindex=240, checked=borrar_active )}}
+
+    {{ render_submit_field(form.submit, tabindex=280) }}
+    </div>
+  </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "main/main_base.html" %}  {# main/main_base.html extends layout.html #}
+
+{% block content %}
+<style>
+table {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+th, td {
+  margin: 0 auto;
+  padding: 15px;
+  text-align: left;
+}
+table td {
+    border-top: thin solid; 
+    border-bottom: thin solid;
+}
+
+table td:first-child {
+     border-left: thin solid;
+}
+
+table td:last-child {
+     border-right: thin solid;
+}
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+/* List styling */
+.featureList, .featureList ul {
+  margin-top: 0;
+  padding-left: 2em;
+  list-style-type: none;
+
+}
+.featureList li:before {
+  position: absolute;
+  margin-left: -1.3em;
+  font-weight: bold;
+}
+.featureList li.tick:before {
+  content: "\2713";
+  color: darkgreen;
+}
+.featureList li.nope:before {
+  content: "\2726";
+  color: orange;
+}
+.featureList li.cross:before {
+  content: "\2717";
+  color: crimson;
+}
+</style>
+<h1 align="center">Lista Tweets Monitoreados</h1>
+
+<table>
+	{% for tweet in ltweets%}
+<tr>
+
+	<td >
+			{{tweet.texto_tweet}}<br>
+			de @{{tweet.autor_tweet}}<br>
+			{{tweet.created_at.strftime('%d/%m/%Y %H:%M')}}<br>
+	</td>
+
+	<td>
+			{%if tweet.calificacion_enlaces %}
+			<ul class="featureList"><li class="tick">Filtro URLs</li></ul>
+			{% elif tweet.calificacion_enlaces is none%}
+			<ul class="featureList"><li class="nope">Filtro URLs</li></ul>
+			{% else %}
+			<ul class="featureList"><li class="cross">Filtro URLs</li></ul>
+			{% endif %}
+
+			{%if tweet.calificacion_idioma %}
+			<ul class="featureList"><li class="tick">Filtro Idioma</li></ul>
+			{% elif tweet.calificacion_idioma is none%}
+			<ul class="featureList"><li class="nope">Filtro Idioma</li></ul>
+			{% else %}
+			<ul class="featureList"><li class="cross">Filtro Idioma</li></ul>
+			{% endif %}
+
+			{%if tweet.calificacion_palabrotas %}
+			<ul class="featureList"><li class="tick">Filtro Lenguaje Ofensivo</li></ul>
+			{% elif tweet.calificacion_palabrotas is none%}
+			<ul class="featureList"><li class="nope">Filtro Lenguaje Ofensivo</li></ul>
+			{% else %}
+			<ul class="featureList"><li class="cross">Filtro Lenguaje Ofensivo</li></ul>
+			{% endif %}
+
+			{%if tweet.calificacion_hora %}
+			<ul class="featureList"><li class="tick">Filtro Horario</li></ul>
+			{% elif tweet.calificacion_hora is none%}
+			<ul class="featureList"><li class="nope">Filtro Horario</li></ul>
+			{% else %}
+			<ul class="featureList"><li class="cross">Filtro Horario</li></ul>
+			{% endif %}
+
+			{%if tweet.calificacion_ubicacion %}
+			<ul class="featureList"><li class="tick">Filtro Ubicación</li></ul>
+			{% elif tweet.calificacion_ubicacion is none%}
+			<ul class="featureList"><li class="nope">Filtro Ubicación</li></ul>
+			{% else %}
+			<ul class="featureList"><li class="cross">Filtro Ubicación</li></ul>
+			{% endif %}
+
+		</td>
+</tr>	
+
+	{% endfor %}
+</table>
+
+
+
+
+{% endblock %}

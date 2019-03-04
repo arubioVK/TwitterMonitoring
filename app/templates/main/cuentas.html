@@ -1,0 +1,15 @@
+{% extends "main/main_base.html" %}  {# main/main_base.html extends layout.html #}
+
+{% block content %}
+
+<h1 align="center">Lista Cuentas Creadas</h1>
+
+<div style="text-align: center">
+{% for cuenta in cuentas%}
+	<a href="profile/{{cuenta.id}}">@{{cuenta.usuario_twitter}}</a><br>
+{% endfor %}
+	<a href="profile/0">Agregar Nueva Cuenta</a>
+</div>
+
+
+{% endblock %}
